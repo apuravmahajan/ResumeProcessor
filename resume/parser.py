@@ -57,7 +57,7 @@ def extract_first_name(text):
         span = doc[start:end]
         first_name = span[0]
         return first_name.text
-
+    
     return None
 
 # Extract the email from the text

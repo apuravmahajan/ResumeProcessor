@@ -76,6 +76,7 @@ WSGI_APPLICATION = 'ResumeProcessor.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# please update the details according to your database details
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
