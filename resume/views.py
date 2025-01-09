@@ -20,7 +20,6 @@ def extract_resume(request):
     mime_type, encoding = mimetypes.guess_type(resume.name)
     if mime_type not in ['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document']:
         return Response({"error": "Invalid file type."}, status=status.HTTP_400_BAD_REQUEST)
-    resume.seek(0)
     
     # pass resume to extract_resume_data function to extract the required data
     first_name, email, mobile_number = extract_resume_data(resume)
