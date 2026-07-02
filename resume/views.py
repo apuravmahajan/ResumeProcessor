@@ -22,15 +22,15 @@ def extract_resume(request):
         return Response({"error": "Invalid file type."}, status=status.HTTP_400_BAD_REQUEST)
     
     # pass resume to extract_resume_data function to extract the required data
-    first_name, email, mobile_number = extract_resume_data(resume)
+    full_name, email, mobile_number = extract_resume_data(resume)
 
     # check if all required data is extracted
-    if not first_name or not email or not mobile_number:
+    if not full_name or not email or not mobile_number:
         return Response({"error": "Unable to extract all required information from the resume."}, status=400)
     
     # save the extracted data to the database and return the response in JSON format
     data = {
-        "first_name": first_name,
+        "full_name": full_name,
         "email": email,
         "mobile_number": mobile_number
     }
