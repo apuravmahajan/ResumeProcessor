@@ -2,8 +2,10 @@ import re
 import spacy
 import pdfplumber
 from docx import Document
-from spacy.matcher import Matcher
+import spacy
 
+# Load the spacy model
+nlp = spacy.load('en_core_web_sm')
 # Read the PDF file
 def read_pdf_file(resume):
     text = ""
@@ -28,36 +30,15 @@ def extract_text_from_resume(resume):
         return read_docx_file(resume)
     return None
 
-# Extract the first name from the text
+# Extract the full name from the text
 def extract_full_name(text):
-    # Load the spacy model
-    nlp = spacy.load('en_core_web_sm')
-
-    # Initialize the matcher
-    matcher = Matcher(nlp.vocab)
-
-    # Define the patterns
-    patterns = [
-        [{'POS': 'PROPN'}, {'POS': 'PROPN'}], 
-        [{'POS': 'PROPN'}, {'POS': 'PROPN'}, {'POS': 'PROPN'}], 
-        [{'POS': 'PROPN'}, {'POS': 'PROPN'}, {'POS': 'PROPN'}, {'POS': 'PROPN'}] 
-    ]
-
-    # Add the patterns to the matcher
-    for pattern in patterns:
-        matcher.add('NAME', patterns=[pattern])
-
-    # Create a Doc object
+    # Create the Doc object
     doc = nlp(text)
-    #  Apply the matcher to the doc
-    matches = matcher(doc)
 
-    # Return the full name from first match if available
-    if matches:
-        match_start = matches[0][1]
-        match_end = matches[0][2]
-        name_span = doc[match_start:match_end]
-        return name_span.text
+    # Loop through doc.ents to find one labelled PERSON and return its text
+    for ent in doc.ents:
+        if ent.label_ == "PERSON":
+            return ent.text
     
     return None
 
