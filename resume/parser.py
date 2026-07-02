@@ -29,7 +29,7 @@ def extract_text_from_resume(resume):
     return None
 
 # Extract the first name from the text
-def extract_first_name(text):
+def extract_full_name(text):
     # Load the spacy model
     nlp = spacy.load('en_core_web_sm')
 
@@ -52,11 +52,12 @@ def extract_first_name(text):
     #  Apply the matcher to the doc
     matches = matcher(doc)
 
-    # Return the first name from first match if available
-    for match_id, start, end in matches:
-        span = doc[start:end]
-        first_name = span[0]
-        return first_name.text
+    # Return the full name from first match if available
+    if matches:
+        match_start = matches[0][1]
+        match_end = matches[0][2]
+        name_span = doc[match_start:match_end]
+        return name_span.text
     
     return None
 
@@ -77,7 +78,7 @@ def extract_mobile_number(text):
 # Extract the required resume data
 def extract_resume_data(resume):
     text = extract_text_from_resume(resume)
-    first_name = extract_first_name(text)
+    full_name = extract_full_name(text)
     email = extract_email(text)
     mobile_number = extract_mobile_number(text)
-    return first_name, email, mobile_number
+    return full_name, email, mobile_number
