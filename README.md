@@ -2,7 +2,7 @@
 
 ## **Project Setup and API Testing Instructions**
 
-This project is a Django-based application that processes resumes (in PDF or DOCX format) and extracts key information such as first name, email, and mobile number. Below are the steps to set up the project locally and test the API endpoint.
+This project is a Django-based application that processes resumes (in PDF or DOCX format) and extracts key information such as full name, email, and mobile number. Below are the steps to set up the project locally and test the API endpoint.
 
 ---
 
@@ -66,7 +66,7 @@ Ensure you have the following installed:
 5. **Send the Request** Click Send, and wait for the response. If no error occurs, a JSON response similar to the one below will be returned:
     ```json
     {
-     "first_name": "John",
+     "full_name": "John Doe",
      "email": "john.doe@example.com",
      "mobile_number": "123-456-7890"
      }
